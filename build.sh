@@ -13,7 +13,8 @@ mkdir -p data/builds
 
 echo "Reading modules from pom.xml..."
 # Use grep and sed to extract all module names from the pom.xml file
-MODULES=$(grep -A 1000 '<modules>' pom.xml | grep -B 1000 '</modules>' | grep '<module>' | sed 's/.*<module>//;s/<\/module>.*//' | tr '\n' ' ')
+# MODULES=$(grep -A 1000 '<modules>' pom.xml | grep -B 1000 '</modules>' | grep '<module>' | sed 's/.*<module>//;s/<\/module>.*//' | tr '\n' ' ')
+MODULES=$(awk '/<modules>/,/<\/modules>/ { if ($0 ~ /<module>/) { gsub(/.*<module>|<\/module>.*/, "", $0); print $0 } }' pom.xml)
 
 # Check if MODULES list is empty
 if [ -z "$MODULES" ]; then
