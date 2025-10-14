@@ -1,0 +1,34 @@
+{
+  "Servers": {
+    "Author Service DB": {
+      "Name": "Author Service DB",
+      "Group": "Bookstore Microservices",
+      "Host": "postgres-author",
+      "Port": 5433,
+      "MaintenanceDB": "author_service",
+      "Username": "admin",
+      "Password": "password",
+      "SslMode": "disable"
+    },
+    "Order Service DB": {
+      "Name": "Order Service DB",
+      "Group": "Bookstore Microservices",
+      "Host": "postgres-order",
+      "Port": 5431,
+      "MaintenanceDB": "order_service",
+      "Username": "admin",
+      "Password": "password",
+      "SslMode": "disable"
+    },
+    "Stock Check Service DB": {
+      "Name": "Stock Check Service DB",
+      "Group": "Bookstore Microservices",
+      "Host": "postgres-stock-check",
+      "Port": 5432,
+      "MaintenanceDB": "stock_check_service",
+      "Username": "admin",
+      "Password": "password",
+      "SslMode": "disable"
+    }
+  }
+}

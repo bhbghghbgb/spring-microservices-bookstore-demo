@@ -14,12 +14,13 @@ mkdir -p data/builds
 echo "Reading modules from pom.xml..."
 # Use grep and sed to extract all module names from the pom.xml file
 # MODULES=$(grep -A 1000 '<modules>' pom.xml | grep -B 1000 '</modules>' | grep '<module>' | sed 's/.*<module>//;s/<\/module>.*//' | tr '\n' ' ')
+# Use awk to extract all module names from the pom.xml file
 MODULES=$(awk '/<modules>/,/<\/modules>/ { if ($0 ~ /<module>/) { gsub(/.*<module>|<\/module>.*/, "", $0); print $0 } }' pom.xml)
 
 # Check if MODULES list is empty
 if [ -z "$MODULES" ]; then
-    echo "Error: Could not read any modules from pom.xml. Exiting."
-    exit 1
+  echo "Error: Could not read any modules from pom.xml. Exiting."
+  exit 1
 fi
 echo "Found modules: $MODULES"
 
@@ -57,9 +58,14 @@ echo "Building Docker image for Next.js frontend..."
 # Build the separate Next.js frontend image
 docker build -t microservices-bookstore/nextjs-frontend:latest ./frontend
 
-# Pull all required base images defined in profile
-echo "Pulling required base images (mongo, postgres, kafka, zipkin, etc.) from Docker Hub..."
-# Using 'docker compose pull' and tagging the profile to ensure images are fetched
-docker compose --profile infrastructure --profile discovery-config --profile services up --no-start
+# Pull all required base images defined in all profiles
+echo "Pulling required base images (mongo, postgres, kafka, zipkin, pgadmin, mongo-express, etc.) from Docker Hub..."
+# Using 'docker compose pull' and passing all profiles to ensure all images are fetched
+docker compose \
+  --profile infrastructure \
+  --profile extra-dbadmin \
+  --profile discovery-config \
+  --profile services \
+  up --no-start
 
 echo "All images built, pulled, and loaded successfully."
