@@ -22,6 +22,9 @@ spring:
 
 server:
   port: 8084
+  tomcat:
+    mbeanregistry:
+      enabled: true
 
 management:
   zipkin:
@@ -33,7 +36,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: prometheus
+        include: "health,info,prometheus"
 
 logging:
   pattern:

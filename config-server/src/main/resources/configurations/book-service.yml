@@ -13,6 +13,9 @@ spring:
 
 server:
   port: 8081
+  tomcat:
+    mbeanregistry:
+      enabled: true
 
 eureka:
   client:
@@ -32,7 +35,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: prometheus
+        include: "health,info,prometheus"
 
 logging:
   pattern:
