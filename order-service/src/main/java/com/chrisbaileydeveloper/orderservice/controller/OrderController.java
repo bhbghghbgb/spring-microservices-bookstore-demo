@@ -30,16 +30,16 @@ public class OrderController {
     public CompletableFuture<ResponseEntity<Map<String, String>>> placeOrder(@RequestBody OrderRequest orderRequest) {
         log.info("Placing the Order");
         return CompletableFuture.supplyAsync(() -> {
-            try {
+            // try {
                 Map<String, String> result = orderService.placeOrder(orderRequest);
                 HttpStatus status = "success".equals(result.get("status")) ? HttpStatus.CREATED : HttpStatus.INTERNAL_SERVER_ERROR;
                 return ResponseEntity.status(status).body(result);
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                        "status", "error",
-                        "message", e.getMessage()
-                ));
-            }
+            // } catch (Exception e) {
+            //     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+            //             "status", "error",
+            //             "message", e.getMessage()
+            //     ));
+            // }
         });
     }
 
