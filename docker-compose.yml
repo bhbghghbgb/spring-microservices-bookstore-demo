@@ -3,7 +3,7 @@ services:
   ## Mongo Docker Compose Config
   mongo:
     container_name: mongo
-    image: mongo:4.4.14-rc0-focal
+    image: mongo:8.2.2-noble
     # restart: always
     ports:
       - "27017:27017"
@@ -16,7 +16,7 @@ services:
 
   postgres-order:
     container_name: postgres-order
-    image: postgres
+    image: postgres:15.15-trixie
     environment:
       POSTGRES_DB: order_service
       POSTGRES_USER: admin
@@ -35,7 +35,7 @@ services:
 
   postgres-stock-check:
     container_name: postgres-stock-check
-    image: postgres
+    image: postgres:15.15-trixie
     environment:
       POSTGRES_DB: stock_check_service
       POSTGRES_USER: admin
@@ -51,7 +51,7 @@ services:
 
   postgres-author:
     container_name: postgres-author
-    image: postgres
+    image: postgres:15.15-trixie
     environment:
       POSTGRES_DB: author_service
       POSTGRES_USER: admin
@@ -69,7 +69,7 @@ services:
       - infrastructure
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.0.1
+    image: confluentinc/cp-zookeeper:7.9.5
     container_name: zookeeper
     ports:
       - "2181:2181"
@@ -80,7 +80,7 @@ services:
       - infrastructure
 
   broker:
-    image: confluentinc/cp-kafka:7.0.1
+    image: confluentinc/cp-kafka:7.9.5
     container_name: broker
     ports:
       - "9092:9092"
@@ -99,7 +99,7 @@ services:
 
   ## Zipkin
   zipkin:
-    image: openzipkin/zipkin
+    image: openzipkin/zipkin:3-amd64
     container_name: zipkin
     ports:
       - "9411:9411"
@@ -211,7 +211,7 @@ services:
 
   ## Prometheus
   prometheus:
-    image: prom/prometheus:v2.37.1
+    image: prom/prometheus:v3.7.3
     container_name: prometheus
     # restart: always
     ports:
@@ -228,7 +228,7 @@ services:
 
   ## Grafana
   grafana:
-    image: grafana/grafana-oss:8.5.2
+    image: grafana/grafana-oss:12.2.0-17142428006
     container_name: grafana
     # restart: always
     ports:
